@@ -1,8 +1,9 @@
 name: Daily AI Pulse curation
 
+# The Mac's 07:30 launchd job is the daily source of truth (it runs enriched on
+# the local Claude Code login and pushes). This workflow is a manual fallback —
+# trigger it from the Actions tab if the Mac is off; needs ANTHROPIC_API_KEY secret.
 on:
-  schedule:
-    - cron: "0 2 * * *" # 02:00 UTC = 07:30 IST
   workflow_dispatch: {}
 
 permissions:

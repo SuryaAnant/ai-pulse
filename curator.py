@@ -60,7 +60,7 @@ def fetch_feed(source: dict) -> list[dict]:
             break
         except urllib.error.HTTPError as exc:
             if exc.code == 429 and attempt < 2:  # Reddit throttles bursts
-                time.sleep(5 * (attempt + 1))
+                time.sleep(20 * (attempt + 1))
                 continue
             raise
     parsed = feedparser.parse(body)
@@ -102,9 +102,26 @@ def fetch_feed(source: dict) -> list[dict]:
 
 
 def fetch_all(sources: list[dict]) -> tuple[list[dict], list[str]]:
+    # Reddit rate-limits parallel bursts (429), so its feeds go one at a time
+    # in a single worker while everything else fans out in parallel.
+    reddit = [s for s in sources if "reddit.com" in s["url"]]
+    other = [s for s in sources if "reddit.com" not in s["url"]]
+
+    def fetch_reddit_serially() -> list[tuple[dict, list[dict] | Exception]]:
+        results = []
+        for i, s in enumerate(reddit):
+            if i:
+                time.sleep(3)
+            try:
+                results.append((s, fetch_feed(s)))
+            except Exception as exc:
+                results.append((s, exc))
+        return results
+
     items, failed = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        futures = {pool.submit(fetch_feed, s): s for s in sources}
+        reddit_fut = pool.submit(fetch_reddit_serially) if reddit else None
+        futures = {pool.submit(fetch_feed, s): s for s in other}
         for fut in concurrent.futures.as_completed(futures):
             src = futures[fut]
             try:
@@ -114,6 +131,14 @@ def fetch_all(sources: list[dict]) -> tuple[list[dict], list[str]]:
             except Exception as exc:
                 failed.append(src["name"])
                 log(f"  {src['name']}: FAILED ({exc})")
+        if reddit_fut:
+            for src, result in reddit_fut.result():
+                if isinstance(result, Exception):
+                    failed.append(src["name"])
+                    log(f"  {src['name']}: FAILED ({result})")
+                else:
+                    items.extend(result)
+                    log(f"  {src['name']}: {len(result)} items")
     return items, failed
 
 
