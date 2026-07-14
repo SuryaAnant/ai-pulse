@@ -1,0 +1,253 @@
+{
+  "sources": [
+    {
+      "name": "AI News (smol.ai)",
+      "url": "https://news.smol.ai/rss.xml",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 1.1,
+      "note": "One daily digest of AI Discords, subreddits and X — best catch-all"
+    },
+    {
+      "name": "TechCrunch AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 1.0,
+      "note": "Fastest on AI startup funding, acquisitions, launches"
+    },
+    {
+      "name": "VentureBeat AI",
+      "url": "https://venturebeat.com/category/ai/feed/",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Enterprise AI industry coverage"
+    },
+    {
+      "name": "The Verge AI",
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Consumer-facing AI news"
+    },
+    {
+      "name": "Ars Technica AI",
+      "url": "https://arstechnica.com/ai/feed/",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Deep technical analysis"
+    },
+    {
+      "name": "THE DECODER",
+      "url": "https://the-decoder.com/feed/",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.8,
+      "note": "Dedicated AI news site, high cadence"
+    },
+    {
+      "name": "MarkTechPost",
+      "url": "https://www.marktechpost.com/feed/",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.7,
+      "note": "Model releases and paper roundups"
+    },
+    {
+      "name": "MIT Technology Review AI",
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+      "category": "news",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Policy and long-form AI analysis"
+    },
+    {
+      "name": "OpenAI News",
+      "url": "https://openai.com/news/rss.xml",
+      "category": "labs",
+      "bucket": "ai",
+      "weight": 1.2,
+      "note": "Official OpenAI announcements"
+    },
+    {
+      "name": "Anthropic News",
+      "url": "https://raw.githubusercontent.com/taobojlen/anthropic-rss-feed/main/anthropic_news_rss.xml",
+      "category": "labs",
+      "bucket": "ai",
+      "weight": 1.2,
+      "note": "Anthropic announcements (maintained RSS mirror — no official feed)"
+    },
+    {
+      "name": "Google DeepMind Blog",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "category": "labs",
+      "bucket": "ai",
+      "weight": 1.1,
+      "note": "Official DeepMind announcements"
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "https://blog.google/technology/ai/rss/",
+      "category": "labs",
+      "bucket": "ai",
+      "weight": 1.0,
+      "note": "Google AI product announcements"
+    },
+    {
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "category": "labs",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Open-source models and tooling"
+    },
+    {
+      "name": "r/LocalLLaMA",
+      "url": "https://www.reddit.com/r/LocalLLaMA/top/.rss?t=day",
+      "category": "community",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Open-source LLM community — earliest signal on local models"
+    },
+    {
+      "name": "r/ClaudeAI",
+      "url": "https://www.reddit.com/r/ClaudeAI/top/.rss?t=day",
+      "category": "community",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Claude Code tips and breakage reports"
+    },
+    {
+      "name": "r/MachineLearning",
+      "url": "https://www.reddit.com/r/MachineLearning/top/.rss?t=week",
+      "category": "community",
+      "bucket": "ai",
+      "weight": 0.8,
+      "note": "Research-focused ML community — weekly top, slow sub"
+    },
+    {
+      "name": "r/ai_agents",
+      "url": "https://www.reddit.com/r/ai_agents/top/.rss?t=day",
+      "category": "community",
+      "bucket": "ai",
+      "weight": 0.7,
+      "note": "Fastest-growing agents community"
+    },
+    {
+      "name": "Simon Willison",
+      "url": "https://simonwillison.net/atom/everything/",
+      "category": "experts",
+      "bucket": "ai",
+      "weight": 1.0,
+      "note": "Practical LLM usage, honest evaluations"
+    },
+    {
+      "name": "Latent Space",
+      "url": "https://www.latent.space/feed",
+      "category": "experts",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "The AI-engineer newsletter — agents and the people building them"
+    },
+    {
+      "name": "Interconnects",
+      "url": "https://www.interconnects.ai/feed",
+      "category": "experts",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "Post-training and frontier model analysis"
+    },
+    {
+      "name": "Import AI",
+      "url": "https://importai.substack.com/feed",
+      "category": "experts",
+      "bucket": "ai",
+      "weight": 0.9,
+      "note": "AI policy and research weekly by Jack Clark"
+    },
+    {
+      "name": "SRE Weekly",
+      "url": "https://sreweekly.com/feed/",
+      "category": "experts",
+      "bucket": "sre",
+      "weight": 1.1,
+      "note": "One curated weekly issue covers most of SRE"
+    },
+    {
+      "name": "r/devops",
+      "url": "https://www.reddit.com/r/devops/top/.rss?t=day",
+      "category": "community",
+      "bucket": "sre",
+      "weight": 0.9,
+      "note": "Biggest active DevOps community"
+    },
+    {
+      "name": "r/sre",
+      "url": "https://www.reddit.com/r/sre/top/.rss?t=week",
+      "category": "community",
+      "bucket": "sre",
+      "weight": 0.8,
+      "note": "Weekly top — slow sub, avoids noise"
+    },
+    {
+      "name": "Cloudflare Blog",
+      "url": "https://blog.cloudflare.com/rss/",
+      "category": "experts",
+      "bucket": "sre",
+      "weight": 0.9,
+      "note": "Best public infra engineering writing + outage post-mortems"
+    },
+    {
+      "name": "charity.wtf",
+      "url": "https://charity.wtf/feed/",
+      "category": "experts",
+      "bucket": "sre",
+      "weight": 0.9,
+      "note": "Charity Majors on observability and eng culture — low volume, high signal"
+    },
+    {
+      "name": "Kubernetes Blog",
+      "url": "https://kubernetes.io/feed.xml",
+      "category": "labs",
+      "bucket": "sre",
+      "weight": 0.8,
+      "note": "Release notes and deprecations you'd otherwise learn the hard way"
+    },
+    {
+      "name": "Hacker News (150+ points)",
+      "url": "https://hnrss.org/frontpage?points=150",
+      "category": "community",
+      "bucket": "tech",
+      "weight": 1.1,
+      "note": "Front page, vote-filtered — general tech, not AI-only"
+    },
+    {
+      "name": "Show HN (100+ points)",
+      "url": "https://hnrss.org/show?points=100",
+      "category": "community",
+      "bucket": "tech",
+      "weight": 0.8,
+      "note": "Where indie AI products launch — founder radar"
+    },
+    {
+      "name": "The Pragmatic Engineer",
+      "url": "https://newsletter.pragmaticengineer.com/feed",
+      "category": "experts",
+      "bucket": "tech",
+      "weight": 0.9,
+      "note": "Gergely Orosz on big tech + startups from the engineer's side"
+    }
+  ],
+  "bucket_caps": { "ai": 8, "sre": 4, "tech": 4 },
+  "ai_keywords": [
+    "ai", "artificial intelligence", "llm", "gpt", "claude", "gemini", "openai",
+    "anthropic", "deepmind", "machine learning", "neural", "model", "agent",
+    "agentic", "transformer", "chatbot", "copilot", "mistral", "llama", "hugging face",
+    "inference", "fine-tun", "rag", "diffusion", "genai", "generative", "nvidia",
+    "ml", "tts", "text-to-speech", "open weights", "benchmark", "embedding",
+    "chip", "gpu", "datacenter", "data center", "compute", "robotics", "autonomous"
+  ]
+}

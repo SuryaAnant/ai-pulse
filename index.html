@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Pulse — Daily Briefing</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<meta name="theme-color" content="#141414">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AI Pulse">
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --text: #1a1a1a; --muted: #6b6b6b;
+    --accent: #b4542a; --chip: #ece9e3; --chip-active: #1a1a1a; --chip-active-text: #fff;
+    --border: #e3e0da; --impact-bg: #f3efe8; --action-bg: #e9f0ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141414; --card: #1e1e1e; --text: #ececec; --muted: #9a9a9a;
+      --accent: #e07b4a; --chip: #2a2a2a; --chip-active: #ececec; --chip-active-text: #141414;
+      --border: #2e2e2e; --impact-bg: #26221c; --action-bg: #1e2620;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+  header {
+    max-width: 720px; margin: 0 auto; padding: 36px 20px 8px;
+  }
+  h1 { font-family: Georgia, serif; font-size: 2rem; letter-spacing: -0.5px; }
+  h1 .dot { color: var(--accent); }
+  .meta { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+  .datenav { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .datenav button {
+    background: var(--chip); border: none; border-radius: 8px; color: var(--text);
+    padding: 4px 12px; font-size: 0.9rem; cursor: pointer;
+  }
+  .datenav button:disabled { opacity: 0.35; cursor: default; }
+  .datenav .current { font-size: 0.88rem; color: var(--muted); min-width: 110px; text-align: center; }
+  nav {
+    max-width: 720px; margin: 16px auto 0; padding: 0 20px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .chip {
+    background: var(--chip); border: none; border-radius: 999px;
+    padding: 6px 14px; font-size: 0.82rem; cursor: pointer; color: var(--text);
+  }
+  .chip.active { background: var(--chip-active); color: var(--chip-active-text); }
+  main { max-width: 720px; margin: 20px auto 60px; padding: 0 20px; display: grid; gap: 16px; }
+  article {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .visual { position: relative; aspect-ratio: 2 / 1; overflow: hidden; }
+  .visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .visual .art { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .visual .art span { font-family: Georgia, serif; font-size: 5rem; font-weight: 700; color: rgba(255,255,255,0.28); user-select: none; }
+  .keyfact {
+    position: absolute; left: 12px; bottom: 12px; max-width: 85%;
+    background: rgba(15,20,17,0.78); color: #f2f5f2; border-radius: 8px; padding: 5px 11px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.78rem;
+  }
+  .body { padding: 16px 20px 16px; }
+  .deeper { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+  footer.card-foot { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .tags { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+  .topic {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); font-weight: 600;
+  }
+  .stars { font-size: 0.72rem; color: var(--muted); }
+  .multi { font-size: 0.72rem; color: var(--muted); }
+  h2 { font-size: 1.15rem; line-height: 1.35; margin-bottom: 8px; }
+  h2 a { color: inherit; text-decoration: none; }
+  h2 a:hover { text-decoration: underline; }
+  .summary { font-size: 0.95rem; }
+  .block {
+    margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 0.88rem;
+  }
+  .impact { background: var(--impact-bg); }
+  .action { background: var(--action-bg); }
+  .block b { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 2px; }
+  footer.card-foot { margin-top: 12px; font-size: 0.78rem; color: var(--muted); }
+  footer.card-foot a { color: var(--muted); }
+  .empty { text-align: center; color: var(--muted); padding: 60px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Pulse<span class="dot">.</span></h1>
+  <div class="meta" id="meta">Loading…</div>
+  <div class="datenav">
+    <button id="prev" title="Older briefing">◀</button>
+    <span class="current" id="curdate"></span>
+    <button id="next" title="Newer briefing">▶</button>
+  </div>
+</header>
+<nav id="filters"></nav>
+<main id="feed"><div class="empty">Loading briefing…</div></main>
+<script>
+const TOPIC_LABELS = {
+  "all": "All", "models": "Models", "startups-funding": "Startups & Funding",
+  "products": "Products", "research": "Research", "policy": "Policy",
+  "infrastructure": "Infrastructure", "open-source": "Open Source",
+  "sre-devops": "SRE & DevOps"
+};
+
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+let articles = [], activeTopic = "all";
+
+function timeAgo(iso) {
+  if (!iso) return "";
+  const h = Math.round((Date.now() - new Date(iso).getTime()) / 3600000);
+  return h < 1 ? "just now" : h < 24 ? `${h}h ago` : `${Math.round(h/24)}d ago`;
+}
+
+function render() {
+  const feed = document.getElementById("feed");
+  const shown = articles.filter(a => activeTopic === "all" || a.topic === activeTopic);
+  if (!shown.length) { feed.innerHTML = '<div class="empty">No stories in this topic today.</div>'; return; }
+  const ART = {
+    "models": ["#0e6f5c", "#12463d"], "startups-funding": ["#9a5b1a", "#5c3a16"],
+    "products": ["#2b5d8f", "#1d3a57"], "research": ["#6b4fa1", "#41305f"],
+    "policy": ["#a03d3d", "#5e2727"], "infrastructure": ["#4f6472", "#2f3d47"],
+    "open-source": ["#3d7a3d", "#274a27"]
+  };
+  const visual = a => {
+    const kf = a.key_fact ? `<span class="keyfact">${esc(a.key_fact)}</span>` : "";
+    if (a.image) return `<div class="visual"><img src="${esc(a.image)}" alt="" loading="lazy" onerror="this.parentElement.remove()">${kf}</div>`;
+    const [c1, c2] = ART[a.topic] || ART["models"];
+    return `<div class="visual"><div class="art" style="background:radial-gradient(120% 140% at 15% 0%, ${c1}, ${c2})"><span aria-hidden="true">${esc((a.title || "?").trim().charAt(0).toUpperCase())}</span></div>${kf}</div>`;
+  };
+  feed.innerHTML = shown.map(a => `
+    <article>
+      ${visual(a)}
+      <div class="body">
+        <div class="tags">
+          <span class="topic">${TOPIC_LABELS[a.topic] || a.topic}</span>
+          <span class="stars">${"●".repeat(a.importance)}${"○".repeat(5 - a.importance)}</span>
+          ${a.also_covered_by.length ? `<span class="multi">covered by ${a.also_covered_by.length + 1} sources</span>` : ""}
+        </div>
+        <h2><a href="${a.link}" target="_blank" rel="noopener">${esc(a.title)}</a></h2>
+        <p class="summary">${esc(a.summary)}</p>
+        ${a.impact ? `<div class="block impact"><b>Why it matters</b>${esc(a.impact)}</div>` : ""}
+        ${a.action ? `<div class="block action"><b>What to do</b>${esc(a.action)}</div>` : ""}
+        <footer class="card-foot">
+          <span>${esc(a.source)} · ${timeAgo(a.published)}</span>
+          <a class="deeper" href="${a.link}" target="_blank" rel="noopener">Go deeper →</a>
+        </footer>
+      </div>
+    </article>`).join("");
+}
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function renderFilters() {
+  const topics = ["all", ...new Set(articles.map(a => a.topic))];
+  const nav = document.getElementById("filters");
+  nav.innerHTML = topics.map(t =>
+    `<button class="chip ${t === activeTopic ? "active" : ""}" data-topic="${t}">${TOPIC_LABELS[t] || t}</button>`
+  ).join("");
+  nav.querySelectorAll(".chip").forEach(btn => btn.onclick = () => {
+    activeTopic = btn.dataset.topic; renderFilters(); render();
+  });
+}
+
+let dates = [], dateIdx = -1;
+
+function loadBriefing(url) {
+  return fetch(url + "?" + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      articles = data.articles || [];
+      activeTopic = "all";
+      const when = new Date(data.generated_at);
+      document.getElementById("meta").textContent =
+        `${articles.length} stories · curated ${when.toLocaleString()}` +
+        (data.ai_enriched ? "" : " · (raw feed — AI enrichment unavailable this run)");
+      document.getElementById("curdate").textContent = data.date || "";
+      renderFilters(); render();
+    });
+}
+
+function updateNav() {
+  document.getElementById("prev").disabled = dateIdx <= 0;
+  document.getElementById("next").disabled = dateIdx >= dates.length - 1;
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= dates.length) return;
+  dateIdx = idx;
+  updateNav();
+  loadBriefing(`data/${dates[idx]}.json`);
+}
+
+document.getElementById("prev").onclick = () => goTo(dateIdx - 1);
+document.getElementById("next").onclick = () => goTo(dateIdx + 1);
+
+fetch("data/index.json?" + Date.now())
+  .then(r => r.json())
+  .then(idx => { dates = idx.dates || []; dateIdx = dates.length - 1; updateNav(); })
+  .catch(() => updateNav());
+
+loadBriefing("data/latest.json").catch(() => {
+  document.getElementById("feed").innerHTML =
+    '<div class="empty">No briefing yet. Run <code>./run_daily.sh</code> first.</div>';
+});
+</script>
+</body>
+</html>
