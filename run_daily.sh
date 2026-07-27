@@ -14,7 +14,7 @@ LOG="logs/curator-$(date +%Y-%m-%d).log"
 # when Surya is often awake. Found the hard way on 28 Jul 2026.
 TODAY_JSON="data/$(date -u +%Y-%m-%d).json"
 if [ -s "$TODAY_JSON" ]; then
-  echo "$(date): briefing for $(date +%F) already exists, skipping" >> "$LOG"
+  echo "$(date): briefing for $(date -u +%F) UTC already exists, skipping" >> "$LOG"
   exit 0
 fi
 .venv/bin/python curator.py >> "$LOG" 2>&1
